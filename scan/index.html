@@ -3,90 +3,551 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f6dbc">
+    <meta name="apple-itunes-app" content="app-id=6743235131">
+    <meta
+      name="description"
+      content="Lattosio Free scansiona ingredienti e aiuta a capire se un prodotto contiene lattosio."
+    >
+    <meta property="og:title" content="Lattosio Free">
+    <meta
+      property="og:description"
+      content="Scansiona prodotti e scopri se contengono lattosio."
+    >
+    <meta property="og:image" content="https://arcadone.github.io/screens/ic_ios.png">
+    <link rel="icon" href="../screens/ic_ios.png">
+    <link rel="apple-touch-icon" href="../screens/ic_ios.png">
     <title>Lattosio Free</title>
     <style>
       :root {
         color-scheme: light;
-        --background: #f7f8f5;
-        --text: #1f2933;
-        --muted: #52606d;
-        --accent: #2f855a;
-        --accent-dark: #276749;
-        --border: #d9e2dc;
+        --app-blue: #1f6dbc;
+        --app-blue-dark: #0f3564;
+        --app-red: #f40f17;
+        --ink: #172033;
+        --muted: #647084;
+        --line: #dce4ef;
+        --surface: #ffffff;
+        --soft: #f5f8fc;
+        --shadow: 0 22px 60px rgba(15, 53, 100, 0.14);
       }
 
       * {
         box-sizing: border-box;
       }
 
+      html {
+        background: var(--soft);
+      }
+
       body {
         margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 32px 20px;
-        background: var(--background);
-        color: var(--text);
+        color: var(--ink);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-
-      main {
-        width: min(100%, 560px);
-        text-align: center;
-      }
-
-      h1 {
-        margin: 0 0 16px;
-        font-size: clamp(2rem, 8vw, 3.5rem);
-        line-height: 1.05;
         letter-spacing: 0;
       }
 
-      p {
-        margin: 0 auto 28px;
-        max-width: 420px;
-        color: var(--muted);
-        font-size: 1.125rem;
-        line-height: 1.6;
+      a {
+        color: inherit;
+      }
+
+      .language-switcher {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        z-index: 10;
+        display: inline-flex;
+        gap: 4px;
+        padding: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.36);
+        border-radius: 999px;
+        background: rgba(16, 21, 34, 0.22);
+        box-shadow: 0 10px 28px rgba(15, 53, 100, 0.18);
+        backdrop-filter: blur(14px);
+      }
+
+      .language-switcher button {
+        min-width: 42px;
+        min-height: 34px;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.82);
+        cursor: pointer;
+        font: inherit;
+        font-size: 0.78rem;
+        font-weight: 850;
+        letter-spacing: 0;
+      }
+
+      .language-switcher button[aria-pressed="true"] {
+        background: #ffffff;
+        color: var(--app-blue-dark);
+      }
+
+      .hero {
+        min-height: 92vh;
+        display: grid;
+        align-items: center;
+        padding: 28px clamp(18px, 5vw, 72px) 48px;
+        background:
+          linear-gradient(115deg, rgba(31, 109, 188, 0.96) 0%, rgba(31, 109, 188, 0.94) 48%, rgba(245, 248, 252, 0.96) 48.1%),
+          var(--app-blue);
+        overflow: hidden;
+      }
+
+      .hero-inner {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(300px, 1.08fr);
+        gap: clamp(28px, 5vw, 72px);
+        align-items: center;
+      }
+
+      .app-lockup {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 34px;
+      }
+
+      .app-icon {
+        width: 92px;
+        height: 92px;
+        border-radius: 23px;
+        box-shadow: 0 16px 34px rgba(15, 53, 100, 0.25);
+      }
+
+      .app-name {
+        display: grid;
+        gap: 5px;
+        color: #ffffff;
+      }
+
+      .app-name strong {
+        font-size: clamp(1.6rem, 4vw, 2.35rem);
+        line-height: 1;
+      }
+
+      .app-name span {
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 0.98rem;
+        font-weight: 700;
+      }
+
+      h1 {
+        max-width: 610px;
+        margin: 0;
+        color: #ffffff;
+        font-size: clamp(3.2rem, 8vw, 6.8rem);
+        line-height: 0.96;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 520px;
+        margin: 28px 0 34px;
+        color: rgba(255, 255, 255, 0.86);
+        font-size: clamp(1.14rem, 2.2vw, 1.35rem);
+        line-height: 1.55;
       }
 
       .store-links {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
         gap: 12px;
       }
 
-      a {
+      .store-button {
         display: inline-flex;
         align-items: center;
-        justify-content: center;
-        min-width: 150px;
-        min-height: 48px;
-        padding: 12px 18px;
-        border: 1px solid var(--border);
+        gap: 12px;
+        min-height: 58px;
+        padding: 10px 18px 10px 14px;
         border-radius: 8px;
-        background: #ffffff;
-        color: var(--accent-dark);
-        font-weight: 700;
+        background: #101522;
+        color: #ffffff;
         text-decoration: none;
+        box-shadow: 0 12px 26px rgba(16, 21, 34, 0.18);
       }
 
-      a:first-child {
-        background: var(--accent);
-        border-color: var(--accent);
+      .store-button svg {
+        width: 26px;
+        height: 26px;
+        flex: 0 0 auto;
+      }
+
+      .store-button span {
+        display: grid;
+        gap: 1px;
+        font-weight: 800;
+        line-height: 1.08;
+      }
+
+      .store-button small {
+        font-size: 0.72rem;
+        font-weight: 650;
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      .showcase {
+        min-width: 0;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(116px, 1fr));
+        gap: clamp(10px, 1.5vw, 16px);
+        align-items: end;
+        transform: rotate(-2deg);
+      }
+
+      .phone-shot {
+        width: 100%;
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        border: 8px solid rgba(255, 255, 255, 0.82);
+        background: #ffffff;
+      }
+
+      .phone-shot:nth-child(1),
+      .phone-shot:nth-child(3) {
+        transform: translateY(42px);
+      }
+
+      .phone-shot:nth-child(2) {
+        transform: translateY(-8px);
+      }
+
+      .content {
+        background: var(--surface);
+        padding: 48px clamp(18px, 5vw, 72px) 64px;
+      }
+
+      .content-inner {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+      }
+
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+
+      h2 {
+        margin: 0;
+        color: var(--app-blue-dark);
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 38px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: var(--app-red);
         color: #ffffff;
+        font-weight: 850;
+        white-space: nowrap;
+      }
+
+      .screenshots {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(210px, 1fr);
+        gap: 18px;
+        overflow-x: auto;
+        padding: 4px 4px 20px;
+        scroll-snap-type: x mandatory;
+      }
+
+      .screenshots img {
+        width: 100%;
+        border-radius: 24px;
+        scroll-snap-align: start;
+        box-shadow: 0 16px 40px rgba(23, 32, 51, 0.12);
+        border: 1px solid var(--line);
+        background: var(--soft);
+      }
+
+      .footer-strip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 26px;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .footer-strip strong {
+        color: var(--ink);
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          min-height: auto;
+          padding-top: 24px;
+          background: linear-gradient(180deg, var(--app-blue) 0%, var(--app-blue) 74%, var(--surface) 74.1%);
+        }
+
+        .hero-inner {
+          grid-template-columns: 1fr;
+          gap: 34px;
+        }
+
+        .app-lockup {
+          margin-bottom: 28px;
+        }
+
+        .showcase {
+          grid-template-columns: repeat(3, minmax(120px, 1fr));
+          transform: none;
+          margin-inline: -74px;
+        }
+
+        .phone-shot {
+          border-width: 6px;
+          border-radius: 22px;
+        }
+
+        .section-heading,
+        .footer-strip {
+          align-items: start;
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .language-switcher {
+          top: 12px;
+          right: 12px;
+        }
+
+        .language-switcher button {
+          min-width: 36px;
+          min-height: 30px;
+          font-size: 0.72rem;
+        }
+
+        .app-icon {
+          width: 74px;
+          height: 74px;
+          border-radius: 18px;
+        }
+
+        .store-links {
+          display: grid;
+        }
+
+        .store-button {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .showcase {
+          margin-inline: -118px;
+        }
+
+        .screenshots {
+          grid-auto-columns: minmax(182px, 76%);
+        }
       }
     </style>
   </head>
   <body>
+    <nav class="language-switcher" aria-label="Seleziona lingua">
+      <button type="button" data-lang-button="it" aria-pressed="true">IT</button>
+      <button type="button" data-lang-button="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang-button="es" aria-pressed="false">ES</button>
+      <button type="button" data-lang-button="pt" aria-pressed="false">PT</button>
+    </nav>
+
     <main>
-      <h1>Lattosio Free</h1>
-      <p>Scansiona prodotti e scopri se contengono lattosio.</p>
-      <div class="store-links" aria-label="Link agli store">
-        <a href="#">App Store</a>
-        <a href="#">Google Play</a>
-      </div>
+      <section class="hero" aria-label="Lattosio Free">
+        <div class="hero-inner">
+          <div>
+            <div class="app-lockup">
+              <img class="app-icon" src="../screens/ic_ios.png" alt="Icona Lattosio Free">
+              <div class="app-name">
+                <strong>Lattosio Free</strong>
+                <span data-i18n="tagline">Scanner ingredienti</span>
+              </div>
+            </div>
+
+            <h1 data-i18n="headline">Scansiona. Controlla. Scegli.</h1>
+            <p class="lead" data-i18n="lead">Scansiona prodotti e scopri se contengono lattosio.</p>
+
+            <div class="store-links" aria-label="Link agli store">
+              <a
+                class="store-button"
+                href="https://apps.apple.com/it/app/lattosio-free/id6743235131"
+                data-i18n-aria-label="appStoreAria"
+                aria-label="Scarica Lattosio Free su App Store"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M16.37 1.04c.08 1.2-.35 2.38-1.09 3.25-.78.91-2.05 1.62-3.24 1.53-.1-1.15.43-2.39 1.13-3.15.8-.87 2.19-1.54 3.2-1.63Zm3.89 16.7c-.58 1.32-.86 1.91-1.61 3.08-1.04 1.6-2.5 3.58-4.32 3.6-1.62.01-2.04-1.05-4.24-1.04-2.2.01-2.67 1.06-4.29 1.05-1.82-.02-3.2-1.8-4.24-3.4-2.9-4.47-3.2-9.71-1.42-12.5 1.27-1.97 3.27-3.13 5.15-3.13 1.92 0 3.12 1.05 4.7 1.05 1.54 0 2.48-1.05 4.69-1.05 1.68 0 3.45.91 4.7 2.48-4.13 2.26-3.46 8.16.88 9.86Z"/>
+                </svg>
+                <span><small data-i18n="appStoreSmall">Scarica su</small>App Store</span>
+              </a>
+
+              <a
+                class="store-button"
+                href="https://play.google.com/store/apps/details?id=com.arcadone.sosmilk&amp;pli=1"
+                data-i18n-aria-label="playStoreAria"
+                aria-label="Scarica Lattosio Free su Google Play"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="#34a853" d="M3.6 2.15c-.38.4-.6 1-.6 1.76v16.18c0 .72.2 1.31.56 1.72l9.32-9.86L3.6 2.15Z"/>
+                  <path fill="#fbbc04" d="m16.06 8.57-3.18 3.38 3.25 3.44 4.28-2.44c1.23-.7 1.23-1.84 0-2.54l-4.35-1.84Z"/>
+                  <path fill="#4285f4" d="M3.6 2.15 16.13 15.4l-3.34 1.9L3.56 21.8c-.36-.4-.56-1-.56-1.72V3.91c0-.76.22-1.36.6-1.76Z"/>
+                  <path fill="#ea4335" d="m3.56 21.8 9.32-9.85 3.25 3.44-3.34 1.9-7.45 4.24c-.68.39-1.3.45-1.78.27Z"/>
+                </svg>
+                <span><small data-i18n="playStoreSmall">Disponibile su</small>Google Play</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="showcase" aria-hidden="true">
+            <img class="phone-shot" src="../screens/screen2_eng.png" alt="">
+            <img class="phone-shot" src="../screens/screen1_eng.png" alt="">
+            <img class="phone-shot" src="../screens/screen3_eng.png" alt="">
+          </div>
+        </div>
+      </section>
+
+      <section class="content" aria-label="Screenshot dell'app">
+        <div class="content-inner">
+          <div class="section-heading">
+            <h2 data-i18n="inside">Dentro l'app</h2>
+            <span class="pill">milk lactose</span>
+          </div>
+
+          <div class="screenshots">
+            <img src="../screens/screen1_eng.png" alt="Smart Scan nell'app Lattosio Free">
+            <img src="../screens/screen2_eng.png" alt="Ricerca prodotto nell'app Lattosio Free">
+            <img src="../screens/screen3_eng.png" alt="Risultato scansione nell'app Lattosio Free">
+            <img src="../screens/screen4_eng.png" alt="Dettaglio ingredienti nell'app Lattosio Free">
+            <img src="../screens/screen5_eng.png" alt="Lista prodotti nell'app Lattosio Free">
+          </div>
+
+          <div class="footer-strip">
+            <span><strong>Lattosio Free</strong> <span data-i18n="footer">per iOS e Android</span></span>
+            <span>arcadone.github.io/scan</span>
+          </div>
+        </div>
+      </section>
     </main>
+    <script>
+      const translations = {
+        it: {
+          description: "Lattosio Free scansiona ingredienti e aiuta a capire se un prodotto contiene lattosio.",
+          ogDescription: "Scansiona prodotti e scopri se contengono lattosio.",
+          languageLabel: "Seleziona lingua",
+          tagline: "Scanner ingredienti",
+          headline: "Scansiona. Controlla. Scegli.",
+          lead: "Scansiona prodotti e scopri se contengono lattosio.",
+          appStoreSmall: "Scarica su",
+          playStoreSmall: "Disponibile su",
+          appStoreAria: "Scarica Lattosio Free su App Store",
+          playStoreAria: "Scarica Lattosio Free su Google Play",
+          inside: "Dentro l'app",
+          footer: "per iOS e Android"
+        },
+        en: {
+          description: "Lattosio Free scans ingredients and helps you understand whether a product contains lactose.",
+          ogDescription: "Scan products and find out if they contain lactose.",
+          languageLabel: "Select language",
+          tagline: "Ingredient scanner",
+          headline: "Scan. Check. Choose.",
+          lead: "Scan products and find out if they contain lactose.",
+          appStoreSmall: "Download on the",
+          playStoreSmall: "Get it on",
+          appStoreAria: "Download Lattosio Free on the App Store",
+          playStoreAria: "Get Lattosio Free on Google Play",
+          inside: "Inside the app",
+          footer: "for iOS and Android"
+        },
+        es: {
+          description: "Lattosio Free escanea ingredientes y te ayuda a saber si un producto contiene lactosa.",
+          ogDescription: "Escanea productos y descubre si contienen lactosa.",
+          languageLabel: "Selecciona idioma",
+          tagline: "Escáner de ingredientes",
+          headline: "Escanea. Comprueba. Elige.",
+          lead: "Escanea productos y descubre si contienen lactosa.",
+          appStoreSmall: "Descargar en",
+          playStoreSmall: "Disponible en",
+          appStoreAria: "Descarga Lattosio Free en App Store",
+          playStoreAria: "Descarga Lattosio Free en Google Play",
+          inside: "Dentro de la app",
+          footer: "para iOS y Android"
+        },
+        pt: {
+          description: "Lattosio Free escaneia ingredientes e ajuda você a saber se um produto contém lactose.",
+          ogDescription: "Escaneie produtos e descubra se contêm lactose.",
+          languageLabel: "Selecionar idioma",
+          tagline: "Scanner de ingredientes",
+          headline: "Escaneie. Confira. Escolha.",
+          lead: "Escaneie produtos e descubra se contêm lactose.",
+          appStoreSmall: "Baixe na",
+          playStoreSmall: "Disponível no",
+          appStoreAria: "Baixe Lattosio Free na App Store",
+          playStoreAria: "Baixe Lattosio Free no Google Play",
+          inside: "Dentro do app",
+          footer: "para iOS e Android"
+        }
+      };
+
+      const supportedLanguages = Object.keys(translations);
+      const savedLanguage = localStorage.getItem("lattosio-free-language");
+      const browserLanguage = navigator.language.slice(0, 2).toLowerCase();
+      const initialLanguage = supportedLanguages.includes(savedLanguage)
+        ? savedLanguage
+        : supportedLanguages.includes(browserLanguage)
+          ? browserLanguage
+          : "it";
+
+      function setMeta(selector, value) {
+        const element = document.querySelector(selector);
+        if (element) {
+          element.setAttribute("content", value);
+        }
+      }
+
+      function setLanguage(language) {
+        const copy = translations[language] || translations.it;
+
+        document.documentElement.lang = language;
+        document.querySelector(".language-switcher").setAttribute("aria-label", copy.languageLabel);
+        setMeta('meta[name="description"]', copy.description);
+        setMeta('meta[property="og:description"]', copy.ogDescription);
+
+        document.querySelectorAll("[data-i18n]").forEach((element) => {
+          element.textContent = copy[element.dataset.i18n];
+        });
+
+        document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
+          element.setAttribute("aria-label", copy[element.dataset.i18nAriaLabel]);
+        });
+
+        document.querySelectorAll("[data-lang-button]").forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.langButton === language));
+        });
+
+        localStorage.setItem("lattosio-free-language", language);
+      }
+
+      document.querySelectorAll("[data-lang-button]").forEach((button) => {
+        button.addEventListener("click", () => setLanguage(button.dataset.langButton));
+      });
+
+      setLanguage(initialLanguage);
+    </script>
   </body>
 </html>
