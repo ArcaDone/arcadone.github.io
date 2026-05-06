@@ -1,0 +1,20 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "TODO_TEAM_ID.com.arcadone.sosmilk"
+        ],
+        "components": [
+          {
+            "/": "/scan"
+          },
+          {
+            "/": "/scan/*"
+          }
+        ]
+      }
+    ]
+  }
+}

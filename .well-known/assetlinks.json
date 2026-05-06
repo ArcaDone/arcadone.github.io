@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.arcadone.sosmilk",
+      "sha256_cert_fingerprints": [
+        "TODO_INSERIRE_SHA256_PLAY_APP_SIGNING"
+      ]
+    }
+  }
+]
