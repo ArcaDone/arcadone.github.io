@@ -1,14 +1,11 @@
 [
   {
-    "relation": [
-      "delegate_permission/common.handle_all_urls"
-    ],
+    "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
       "package_name": "com.arcadone.sosmilk",
-      "sha256_cert_fingerprints": [
-        "TODO_INSERIRE_SHA256_PLAY_APP_SIGNING"
-      ]
+      "sha256_cert_fingerprints":
+        ["78:89:C7:B3:76:09:EE:C0:8B:3F:CF:61:C9:9E:A2:DB:F9:E6:05:2B:7F:15:A5:C9:33:AC:FF:B3:1B:FC:D4:5B", "45:21:FD:AA:31:50:C7:2D:5E:03:94:4B:66:A7:31:CE:A3:84:76:36:D7:46:4B:BC:BD:87:CF:2D:67:63:67:43"]
     }
   }
 ]
